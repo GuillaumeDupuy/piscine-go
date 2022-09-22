@@ -11,42 +11,45 @@ func setPoint(ptr *point) {
 	ptr.x = 42
 	ptr.y = 21
 }
-
 func main() {
-	xStr := "x = "
-	yStr := "y = "
 	points := &point{}
-
 	setPoint(points)
-
-	xmassiv := []rune{}
-	ymassiv := []rune{}
-
-	xVal := points.x
-	yVal := points.y
-
-	for xVal != 0 {
-		xmassiv = append(xmassiv, rune(xVal%10))
-		xVal /= 10
-	}
-	for _, val := range xStr {
-		z01.PrintRune(rune(val))
-	}
-	for i := len(xmassiv) - 1; i >= 0; i-- {
-		z01.PrintRune(xmassiv[i] + 48)
-	}
+	z01.PrintRune('x')
+	z01.PrintRune(' ')
+	z01.PrintRune('=')
+	z01.PrintRune(' ')
+	IntoRune(points.x)
 	z01.PrintRune(',')
 	z01.PrintRune(' ')
-
-	for yVal != 0 {
-		ymassiv = append(ymassiv, rune(yVal%10))
-		yVal /= 10
-	}
-	for _, val := range yStr {
-		z01.PrintRune(rune(val))
-	}
-	for i := len(ymassiv) - 1; i >= 0; i-- {
-		z01.PrintRune(ymassiv[i] + 48)
-	}
+	z01.PrintRune('y')
+	z01.PrintRune(' ')
+	z01.PrintRune('=')
+	z01.PrintRune(' ')
+	IntoRune(points.y)
 	z01.PrintRune('\n')
+	//	fmt.Printf("x = %d, y = %d\n",points.x, points.y)
+}
+func check(r int) {
+	c := '0'
+	if r == 0 {
+		z01.PrintRune(c)
+		return
+	}
+	for i := 1; i <= r%10; i++ {
+		c++
+	}
+	for i := -1; i >= r%10; i-- {
+		c++
+	}
+	if r/10 != 0 {
+		check(r / 10)
+	}
+	z01.PrintRune(c)
+	return
+}
+func IntoRune(n int) {
+	if n < 0 {
+		z01.PrintRune('-')
+	}
+	check(n)
 }
